@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>fitts.png</file>
+    </qresource>
+    <qresource prefix="/styles">
+        <file>style.qss</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file>icons/beenIcon.svg</file>
+        <file>icons/eyeIcon.svg</file>
+        <file>icons/homeIcon.svg</file>
+        <file>icons/moinsButton.svg</file>
+        <file>icons/moinsButton2.svg</file>
+        <file>icons/plusButton.svg</file>
+        <file>icons/plusButton2.svg</file>
+        <file>icons/restartIcon.svg</file>
+        <file>icons/switchGraphe_1.svg</file>
+        <file>icons/switchGraphe_2.svg</file>
+    </qresource>
+</RCC>

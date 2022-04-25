@@ -1,0 +1,104 @@
+.title {
+    qproperty-alignment: AlignCenter;
+    font: 100px "Rubik";
+}
+
+QPushButton {
+
+    height : 80px;
+    width :80px;
+    border: 2px solid rgba(0,0,0,0);
+    border-radius : 30px;
+    color:white;
+    background-color : #20B773;
+
+
+}
+.btn-box>QPushButton {
+    width: 100%;
+
+}
+.btn-red, .btn-green{
+    font-size : 20px;
+
+}
+.btn-red {
+    background-color: #eb4b3d;
+}
+
+.btn-green {
+    background-color : #20B773;
+}
+
+.btn-green:hover, .btn-box>QPushButton:hover
+{
+  background-color: white;
+  color : #20B773;
+  border: 2px solid #20B773;
+  border-radius : 30px;
+
+}
+
+.btn-red:hover
+{
+  background-color: white;
+  color : #eb4b3d;
+  border: 2px solid #eb4b3d;
+  border-radius : 30px;
+
+}
+
+QPushButton:disabled{
+    background-color : rgba(0,0,0,.1);
+    border : 1px solid grey;
+    color : grey;
+}
+
+.config{
+    background-color : #212121;
+    border : 1px solid grey;
+    border-radius : 10px;
+}
+.configLayout{
+    margin: 20px;
+}
+.config QSpinBox{
+    background-color : #212121;
+}
+
+.config QDoubleSpinBox{
+    background-color : #212121;
+}
+
+.config QSpinBox:focus, QDoubleSpinBox:focus{
+    border : 3px solid #20B773;
+
+}
+.configLabel{
+    font-weight : bold;
+    font-size : 1em;
+}
+
+QMainWindow{
+    background-color :#212121;
+}
+
+
+.fitts{
+    qproperty-alignment: AlignCenter;
+}
+
+
+.testScene{
+    border : 0 solid white;
+}
+.testText{
+    qproperty-alignment: AlignCenter;
+    margin-bottom : 20px
+}
+
+.resultLabel{
+    font-size: x-large;
+    padding: 5px;
+
+}
