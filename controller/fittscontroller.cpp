@@ -58,7 +58,7 @@ void FittsController::start() {
 
 void FittsController::startSimulation() {
     if (this->fittsModel->minSize > this->fittsModel->maxSize) return;
-    this->fittsView->mainStack->setCurrentIndex(1);
+    this->fittsView->mainStack->setCurrentIndex(2);
     this->fittsModel->cibleLeft = this->fittsModel->nbCible;
     this->fittsView->updateTestMsg();
     this->fittsView->graphicView->setEnabled(true);
@@ -74,11 +74,15 @@ void FittsController::quit() {
     QApplication::quit();
 }
 
-void FittsController::backToSettings() {
+void FittsController::backToMenu() {
     this->fittsView->mainStack->setCurrentIndex(0);
 }
+
+void FittsController::backToSettings() {
+    this->fittsView->mainStack->setCurrentIndex(1);
+}
 void FittsController::resultClicked() {
-    this->fittsView->mainStack->setCurrentIndex(2);
+    this->fittsView->mainStack->setCurrentIndex(3);
 
     this->calculateResult();
 }

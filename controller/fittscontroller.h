@@ -31,6 +31,7 @@ private slots:
     void quit();
     void aideClicked();
     void startSimulation();
+    void backToMenu();
     void backToSettings();
     void resultClicked();
     void changeGraphHome();

@@ -39,10 +39,13 @@ FittsView::FittsView(FittsController *fittsController, FittsModel *fittsModel) :
     connect(homeLeaveBtn,SIGNAL(clicked()),fittsController,SLOT(quit()));
     connect(homeStartBtn,SIGNAL(clicked()),fittsController,SLOT(startSimulation()));
 
-    connect(testHomeBtn,SIGNAL(clicked()),fittsController,SLOT(backToSettings()));
+    connect(fittshomeBtn,SIGNAL(clicked()),fittsController,SLOT(backToSettings()));
+    connect(keyhomeBtn,SIGNAL(clicked()),fittsController,SLOT(startSimulation()));
+
+    connect(testHomeBtn,SIGNAL(clicked()),fittsController,SLOT(backToMenu()));
     connect(testRestartBtn,SIGNAL(clicked()),fittsController,SLOT(startSimulation()));
 
-    connect(resultHomeBtn,SIGNAL(clicked()),fittsController,SLOT(backToSettings()));
+    connect(resultHomeBtn,SIGNAL(clicked()),fittsController,SLOT(backToMenu()));
     connect(resultRestartBtn,SIGNAL(clicked()),fittsController,SLOT(startSimulation()));
 
     connect(switchGraphHome, SIGNAL(clicked()),fittsController,SLOT(changeGraphHome()));
@@ -61,51 +64,84 @@ FittsView::FittsView(FittsController *fittsController, FittsModel *fittsModel) :
 
 FittsView::~FittsView() {}
 
-void FittsView::initWindows() {
 
+
+
+void FittsView::initWindows() {
 
     actionAide = new QAction(tr("Aide"), this);
     actionAide->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_H));
     actionAide->setShortcutVisibleInContextMenu(true);
     this->menuBar()->addAction(actionAide);
 
+
     QWidget *mainWidget = new QWidget;
     mainWidget->setProperty("id", "mainWidget");
     this->setCentralWidget(mainWidget);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout(mainWidget);
+    QVBoxLayout *mainFittsLayout = new QVBoxLayout(mainWidget);
 
     mainStack = new QStackedLayout;
-    mainLayout->addLayout(mainStack);
+    mainFittsLayout->addLayout(mainStack);
 
-    QWidget *settingsWidget = new QWidget;
-    mainStack->addWidget(settingsWidget);
 
-    QVBoxLayout *settingsLayout = new QVBoxLayout(settingsWidget);
-    settingsLayout->setContentsMargins(QMargins(40,0,40,10));
+    QWidget *menuWidget = new QWidget;
+    mainStack->addWidget(menuWidget);
+
+    QVBoxLayout *menuLayout = new QVBoxLayout(menuWidget);
+    menuLayout->setContentsMargins(QMargins(40,0,40,10));
+    QLabel *menulabel;
+
+    menulabel = new QLabel("Projet Fitts/KeyStroke");
+    menulabel->setProperty("class", "title");
+    menuLayout->addWidget(menulabel);
+
+    QHBoxLayout *menubtnLayout = new QHBoxLayout;
+    menuLayout->addLayout(menubtnLayout);
+    menubtnLayout->setContentsMargins(QMargins(0,40,0,0));
+
+    fittshomeBtn = new QPushButton("Test Fitts");
+    fittshomeBtn->setProperty("class", "btn-green");
+    fittshomeBtn->setCursor(Qt::PointingHandCursor);
+    menubtnLayout->addWidget(fittshomeBtn);
+
+
+    keyhomeBtn = new QPushButton("Test keystroke");
+    keyhomeBtn->setCursor(Qt::PointingHandCursor);
+    keyhomeBtn->setProperty("class", "btn-green");
+    menubtnLayout->addWidget(keyhomeBtn);
+
+    /*#############     FITTS MAIN PART     #########################*/
+
+
+    QWidget *fittsSettingsWidget = new QWidget;
+    mainStack->addWidget(fittsSettingsWidget);
+
+    QVBoxLayout *fittsSettingsLayout = new QVBoxLayout(fittsSettingsWidget);
+    fittsSettingsLayout->setContentsMargins(QMargins(40,0,40,10));
     QLabel *label;
 
     label = new QLabel("Loi de Fitts");
     label->setProperty("class", "title");
-    settingsLayout->addWidget(label);
+    fittsSettingsLayout->addWidget(label);
 
     QLabel *fitts = new QLabel("fitts");
     fitts->setProperty("class","fitts");
     fitts->setPixmap(QPixmap(":/images/fitts.png"));
-    settingsLayout->addWidget(fitts);
+    fittsSettingsLayout->addWidget(fitts);
 
 
     QGroupBox *configBox = new QGroupBox();
     configBox->setProperty("class","config");
     configBox->setContentsMargins(QMargins(10,5,10,10));
 
-    settingsLayout->addWidget(configBox);
-    QGridLayout *configLayout = new QGridLayout(configBox);
-    configLayout->setProperty("class","configLayout");
-    configLayout->setRowMinimumHeight(1,30);
+    fittsSettingsLayout->addWidget(configBox);
+    QGridLayout *fittsConfigLayout = new QGridLayout(configBox);
+    fittsConfigLayout->setProperty("class","configLayout");
+    fittsConfigLayout->setRowMinimumHeight(1,30);
 
-    QLabel *configLabel = new QLabel("Configuration du test");
-    configLabel->setProperty("class","configLabel");
+    QLabel *fittsConfigLabel = new QLabel("Configuration du test");
+    fittsConfigLabel->setProperty("class","configLabel");
 
     QLabel *targetNbr = new QLabel("Nombre de cibles:");
     QLabel *minSizeTarget = new QLabel("Taille minimum cible:");
@@ -113,41 +149,41 @@ void FittsView::initWindows() {
     QLabel *aValueTarget = new QLabel("Variable a ");
     QLabel *bValueTarget = new QLabel("Variable b ");
 
-    configLayout->addWidget(configLabel,1,0);
-    configLayout->addWidget(targetNbr,2,0);
-    configLayout->addWidget(minSizeTarget,3,0);
-    configLayout->addWidget(maxSizeTarget,4,0);
-    configLayout->addWidget(aValueTarget,5,0);
-    configLayout->addWidget(bValueTarget,6,0);
+    fittsConfigLayout->addWidget(fittsConfigLabel,1,0);
+    fittsConfigLayout->addWidget(targetNbr,2,0);
+    fittsConfigLayout->addWidget(minSizeTarget,3,0);
+    fittsConfigLayout->addWidget(maxSizeTarget,4,0);
+    fittsConfigLayout->addWidget(aValueTarget,5,0);
+    fittsConfigLayout->addWidget(bValueTarget,6,0);
 
 
     nbCible = new QSpinBox;
     nbCible->setValue(this->fittsModel->nbCible);
     nbCible->setMaximum(100);
     nbCible->setMinimum(5);
-    configLayout->addWidget(nbCible,2,1);
+    fittsConfigLayout->addWidget(nbCible,2,1);
 
     minSize = new QSpinBox;
     minSize->setMaximum(1000);
     minSize->setValue(this->fittsModel->minSize);
-    configLayout->addWidget(minSize,3,1);
+    fittsConfigLayout->addWidget(minSize,3,1);
 
     maxSize = new QSpinBox;
     maxSize->setMaximum(1000);
     maxSize->setValue(this->fittsModel->maxSize);
-    configLayout->addWidget(maxSize,4,1);
+    fittsConfigLayout->addWidget(maxSize,4,1);
 
     aValue = new QDoubleSpinBox;
     aValue->setValue(this->fittsModel->a);
-    configLayout->addWidget(aValue,5,1);
+    fittsConfigLayout->addWidget(aValue,5,1);
 
     bValue = new QDoubleSpinBox;
     bValue->setValue(this->fittsModel->b);
-    configLayout->addWidget(bValue,6,1);
+    fittsConfigLayout->addWidget(bValue,6,1);
 
 
     QHBoxLayout *btnLayout = new QHBoxLayout;
-    settingsLayout->addLayout(btnLayout);
+    fittsSettingsLayout->addLayout(btnLayout);
     btnLayout->setContentsMargins(QMargins(0,40,0,0));
 
     homeLeaveBtn = new QPushButton("Quitter");
@@ -160,6 +196,8 @@ void FittsView::initWindows() {
     homeStartBtn->setCursor(Qt::PointingHandCursor);
     homeStartBtn->setProperty("class", "btn-green");
     btnLayout->addWidget(homeStartBtn);
+
+
 
 
 

@@ -36,6 +36,8 @@ private:
     FittsModel *fittsModel;
     FittsController *fittsController;
 
+    QPushButton *fittshomeBtn;
+    QPushButton *keyhomeBtn;
     QPushButton *homeLeaveBtn;
     QPushButton *homeStartBtn;
     QPushButton *testHomeBtn;
